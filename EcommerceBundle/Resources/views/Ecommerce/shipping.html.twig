@@ -1,0 +1,70 @@
+{% extends 'EllisAppsEcommerceBundle:Shared:layout.html.twig' %}
+
+{% block pre_content %}
+    <div class="bg-secondary">
+        <div class="container" style="min-height: 200px;">
+            <div class="checkout-wrap">
+                <ul class="checkout-bar">
+                    <li class="visited first">Login</li>
+                    <li class="active">Shipping &amp; Billing</li>
+                    <li class="next">Review &amp; Payment</li>
+                    <li class="">Complete</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <br>
+    <div class="row">
+        <div class="col-sm-6">
+            <h3 class="primary-color">Shipping</h3>
+            <div class="panel panel-custom">
+                <div class="panel-body">
+                    <label class="primary-color">First Name</label>
+                    <input class="form-control" type="text"><br>
+                    <label class="primary-color">Last Name</label>
+                    <input class="form-control" type="text"><br>
+                    <label class="primary-color">Address</label>
+                    <input class="form-control" type="text"><br>
+                    <label class="primary-color">City</label>
+                    <input class="form-control" type="text"><br>
+                    <label class="primary-color">State</label>
+                    <input class="form-control" type="text"><br>
+                    <label class="primary-color">Zip</label>
+                    <input class="form-control" type="text">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <h3 class="primary-color">Billing</h3>
+            <div class="panel panel-custom">
+                <div class="panel-body">
+                    <label class="primary-color">First Name</label>
+                    <input class="form-control" type="text"><br>
+                    <label class="primary-color">Last Name</label>
+                    <input class="form-control" type="text"><br>
+                    <label class="primary-color">Address</label>
+                    <input class="form-control" type="text"><br>
+                    <label class="primary-color">City</label>
+                    <input class="form-control" type="text"><br>
+                    <label class="primary-color">State</label>
+                    <input class="form-control" type="text"><br>
+                    <label class="primary-color">Zip</label>
+                    <input class="form-control" type="text">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix">
+        <div class="pull-right">
+            <a href="{{ path('ellisapps_ecommerce_review') }}" class="btn btn-custom pull-right">
+                Review &amp; Payment <i class="fa fa-chevron-right"></i>
+            </a>
+        </div>
+    </div>
+    <br><br>
+{% endblock %}

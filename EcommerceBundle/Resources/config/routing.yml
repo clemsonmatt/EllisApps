@@ -1,0 +1,4 @@
+ellisapps_ecommerce:
+    resource: "@EllisAppsEcommerceBundle/Controller/"
+    type:     annotation
+    prefix:   /e-commerce

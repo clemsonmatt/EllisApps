@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>e-Commerce</title>
+
+    {% block stylesheets %}
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        {% stylesheets
+            '@EllisAppsSharedBundle/Resources/public/css/bootstrap/bootstrap.css'
+            '@EllisAppsSharedBundle/Resources/public/css/custom.css'
+            '@EllisAppsEcommerceBundle/Resources/public/css/nav.css'
+            '@EllisAppsEcommerceBundle/Resources/public/css/subNav.css'
+            '@EllisAppsEcommerceBundle/Resources/public/css/custom.css'
+            '@EllisAppsEcommerceBundle/Resources/public/css/checkoutProgressBar.css'
+        %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+    {% endblock %}
+
+</head>
+<body style="background-color: #f9f9f9;">
+
+    {# main nav #}
+    <div class="container">
+        {% include 'EllisAppsEcommerceBundle:Shared:nav.html.twig' %}
+    </div>
+
+    {# sub-nav #}
+    {% block pre_content %}
+        {% include 'EllisAppsEcommerceBundle:Shared:subNav.html.twig' %}
+    {% endblock %}
+
+    {# content #}
+    <div class="container">
+        {% block content %}
+
+        {% endblock %}
+    </div>
+
+    {# footer 1 #}
+    <br><br>
+    <div class="bg-primary-dark" style="padding-top: 30px; padding-bottom: 30px;">
+        <h4 class="text-center">
+            Have some questions for us?
+            <br><br>
+            <button class="btn btn-custom-clear btn-sm">
+                Contact Us
+            </button>
+        </h4>
+    </div>
+    {# footer 2 #}
+    <div class="bg-primary-darker " style="padding-top: 20px; padding-bottom: 20px;">
+        <div class="container">
+            <div class="pull-right" style="font-size: 18px;">
+                &copy; Copyright XYZ Inc. {{ "now"|date('Y') }}
+            </div>
+            <i class="fa fa-facebook-square fa-2x"></i>
+            <i class="fa fa-twitter-square fa-2x"></i>
+            <i class="fa fa-linkedin-square fa-2x"></i>
+        </div>
+    </div>
+
+    {% block javascripts %}
+        {% javascripts
+            'bundles/ellisappsshared/js/jquery-1.11.1.min.js'
+            'bundles/ellisappsshared/js/bootstrap/bootstrap.js'
+        %}
+            <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+
+        <script>
+            /* datepicker */
+            // $('.datepicker').datepicker();
+        </script>
+    {% endblock %}
+
+</body>
+</html>

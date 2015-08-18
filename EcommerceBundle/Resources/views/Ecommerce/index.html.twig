@@ -1,0 +1,40 @@
+{% extends 'EllisAppsEcommerceBundle:Shared:layout.html.twig' %}
+
+{% block content %}
+    <br>
+    {% for i in 1..9 %}
+        {% if i % 3 == 1 %}
+            <div class="row">
+        {% endif %}
+            <div class="col-sm-4">
+                <div class="panel panel-custom">
+                    <div class="panel-heading">
+                        Item {{ i }}
+                    </div>
+                    <div class="panel-body">
+                        <div style="height: 200px; width: 100%; background-color: #f9f9f9;">
+
+                        </div>
+                        <br>
+                        <strong>Product Detail</strong>
+                        <ul>
+                            <li>Product Detail</li>
+                            <li>Product Detail</li>
+                            <li>Product Detail</li>
+                        </ul>
+                    </div>
+                    <div class="panel-footer">
+                        <h4 class="secondary-color">
+                            <button class="btn btn-custom btn-sm pull-right">
+                                Add to cart
+                            </button>
+                            $19.99
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        {% if i % 3 == 0 %}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
