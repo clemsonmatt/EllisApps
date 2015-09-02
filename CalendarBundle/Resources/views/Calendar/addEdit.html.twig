@@ -1,0 +1,29 @@
+{% extends 'EllisAppsCalendarBundle:Shared:layout.html.twig' %}
+
+{% block panel_heading %}
+    Add Calendar
+{% endblock %}
+
+{% block panel_content %}
+    {{ form_start(form) }}
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_row(form.category) }}
+                {{ form_row(form.name) }}
+                {{ form_row(form.abbr) }}
+
+                {{ form_label(form.color) }}
+                {% for color in form.color %}
+                    <div style="background-color: #{{ color.vars.label }}; color: #{{ color.vars.value }}; padding: 5px 15px;">
+                        {{ form_widget(color) }}
+                    </div>
+                {% endfor %}
+                {{ form_rest(form) }}
+            </div>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-custom">
+            <i class="fa fa-check"></i> Save
+        </button>
+    {{ form_end(form) }}
+{% endblock %}

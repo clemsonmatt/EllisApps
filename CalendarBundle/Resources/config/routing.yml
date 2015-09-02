@@ -1,0 +1,4 @@
+ellisapps_calendar:
+    resource: "@EllisAppsCalendarBundle/Controller/"
+    type:     annotation
+    prefix:   /event-calendar

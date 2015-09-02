@@ -1,0 +1,72 @@
+<nav class="navbar navbar-custom" style="margin-bottom: 0; border-bottom: 0px;">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">
+            <center>
+                EllisApps Help Desk
+            </center>
+          </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Tickets <span class="sr-only">(current)</span></a></li>
+                <li><a href="#">Activity</a></li>
+                <li><a href="#">Reports</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        Matt <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+
+<div class="navbar-custom sidebar" role="navigation">
+    <div class="sidebar-nav navbar-collapse">
+        <div style="padding: 15px;">
+            <a href="{{ path('ellisapps_helpdesk_ticket_add') }}" class="btn btn-custom btn-sm btn-block">
+                <i class="fa fa-plus"></i> Add Ticket
+            </a>
+        </div>
+        <ul class="nav" id="side-menu">
+            <li class="active first">
+                <a href="{{ path('ellisapps_helpdesk_ticket_index') }}">
+                    <i class="fa fa-folder-open-o"></i>
+                    Open
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fa fa-refresh"></i>
+                    In Review
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('ellisapps_helpdesk_ticket_resolved') }}">
+                    <i class="fa fa-check-square-o"></i>
+                    Resolved
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

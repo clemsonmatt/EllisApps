@@ -1,0 +1,161 @@
+{% extends 'EllisAppsHelpDeskBundle:Shared:layout.html.twig' %}
+
+{% block content %}
+    <div class="panel panel-custom">
+        <div class="panel-heading">
+            <a href="{{ path('ellisapps_helpdesk_ticket_index') }}">
+                All Tickets
+            </a>
+            &raquo;
+            Ticket Details
+        </div>
+        <div class="panel-body">
+            {# summary #}
+            <h2 style="color: #444;">{{ ticket.subject }}</h2>
+            {# details #}
+            <blockquote class="text-muted">
+                {{ ticket.description }}
+            </blockquote>
+
+            {# breakdown items #}
+            <div class="text-center" style="background-color: #eee; color: #999; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; height: 100px; padding: 15px; margin-left: -15px; margin-right: -15px;">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h4>Category</h4>
+                        <p>{{ ticket.categoryList[ticket.category] }}</p>
+                    </div>
+                    <div class="col-md-3" style="border-left: 1px solid #ddd;">
+                        <h4>Creator</h4>
+                        <p>{{ ticket.personName }} | {{ ticket.personEmail }}</p>
+                    </div>
+                    <div class="col-md-3" style="border-left: 1px solid #ddd;">
+                        <h4>{{ ticket.currentStatus.status|capitalize }}</h4>
+                        <p>{{ ticket.currentStatus.statusDate|date('m-d-Y h:i a') }}</p>
+                    </div>
+                    <div class="col-md-3" style="border-left: 1px solid #ddd;">
+                        <h4>Time Spent</h4>
+                        <p>Unspecified</p>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            {# status history #}
+            <h2 style="color: #444;">Status History</h2>
+            <br>
+            {% set previous_status = null %}
+            {% set previous_person = null %}
+            {% set previous_indent = 0 %}
+
+            {% for statusHistory in ticket.statusHistory %}
+                {% if previous_status == null %}
+                    {# set the initial values #}
+                    {% set previous_status = statusHistory.status %}
+                    {% set previous_person = statusHistory.personName %}
+
+                {% elseif previous_person != statusHistory.personName and previous_status == statusHistory.status and statusHistory.internal == false %}
+                    {# indent if different person and no status change #}
+                    <div style="border-left: 2px solid #ddd; border-bottom: 2px solid #ddd; height; 50px; width: 50px; margin-left: {{ previous_indent + 45 }}px; margin-top: -10px; margin-bottom: -25px;">
+                        &nbsp;
+                    </div>
+                {% endif %}
+
+                <table style="{% if previous_person != statusHistory.personName and previous_status == statusHistory.status and statusHistory.internal == false %} margin-left: {{ previous_indent + 100 }}px; {% set previous_indent = 100 %} {% endif %}">
+                    <tr>
+                        <td>
+                            <div style="height: 90px; width: 90px; border-radius: 90px; padding: 35px; color: #fff; background-color: {{ statusHistory.backgroundColor }};">
+                                {{ statusHistory.personAbbr }}
+                            </div>
+                        </td>
+                        <td>
+                            <div style="padding: 15px; background-color: #f6f6f6; color: #999; border-radius: 5px; border-bottom-left-radius: 25px; border-top-left-radius: 0px; margin-left: 20px;">
+                                <span class="{% if statusHistory.isInternal == true %} text-warning {% elseif statusHistory.status == 'fixed' %} text-success {% endif %}">
+                                    {% if statusHistory.isInternal == true %}
+                                        NOTE:
+                                    {% elseif statusHistory.status == 'fixed' %}
+                                        FIXED:
+                                    {% endif %}
+                                    {{ statusHistory.message }}
+                                </span>
+                                <hr style="margin-top: 5px; margin-bottom: 2px;">
+                                <span style="color: #ccc; font-size: 12px;">
+                                    {{ statusHistory.statusDate|date('m-d-Y h:i a') }}
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <br>
+
+                {% set previous_person = statusHistory.personName %}
+
+            {% endfor %}
+
+            {# reply/change status #}
+            <br><br>
+            {% if ticket.currentStatus.isOpen %}
+                <div style="background-color: #eee; color: #999; border: 1px solid #ddd; padding: 15px; margin-left: -15px; margin-right: -15px; margin-bottom: -20px;">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <ul class="list-group">
+                                <a href="{{ path('ellisapps_helpdesk_ticket_status_add', {'ticket': ticket.id, 'status': 'no-issue'}) }}" class="list-group-item">
+                                    <span class="text-primary">
+                                        <i class="fa fa-ban"></i> No Issue
+                                    </span>
+                                </a>
+                                <a href="{{ path('ellisapps_helpdesk_ticket_status_add', {'ticket': ticket.id, 'status': 'review'}) }}" class="list-group-item">
+                                    <span class="text-warning">
+                                        <i class="fa fa-refresh"></i> Move To Review
+                                    </span>
+                                </a>
+                                <a href="{{ path('ellisapps_helpdesk_ticket_status_add', {'ticket': ticket.id, 'status': 'close'}) }}" class="list-group-item">
+                                    <span class="text-danger">
+                                        <i class="fa fa-remove"></i> Close
+                                    </span>
+                                </a>
+                                <a href="{{ path('ellisapps_helpdesk_ticket_status_add', {'ticket': ticket.id, 'status': 'complete'}) }}" class="list-group-item">
+                                    <span class="text-success">
+                                        <i class="fa fa-check-square-o"></i> Complete
+                                    </span>
+                                </a>
+                            </ul>
+                        </div>
+                        <div class="col-md-10" style="border-left: 1px solid #ddd;">
+                            {{ form_start(form) }}
+                                <div class="row">
+                                    <div class="col-lg-2">
+                                        {{ form_row(form.action) }}
+                                    </div>
+                                    <div class="col-lg-10">
+                                        {{ form_rest(form) }}
+                                        <button type="submit" class="btn btn-custom btn-sm pull-right">
+                                            Post
+                                        </button>
+                                    </div>
+                                </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        /* make radio inline */
+        // $('.radio').addClass('radio-inline');
+        // $('.radio').removeClass('radio');
+
+        /* style each radio button */
+        // $('.radio-inline').css('background-color', '#999');
+        // $('.radio-inline').css('color', '#f6f6f6');
+        // $('.radio-inline').css('padding', '5px 15px 5px 40px');
+        // $('.radio-inline').css('width', '24%');
+        // $('.radio-inline').css('border-top-left-radius', '5px');
+        // $('.radio-inline').css('border-top-right-radius', '5px');
+    </script>
+{% endblock %}

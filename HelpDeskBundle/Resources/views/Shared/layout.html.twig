@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Help Desk</title>
+
+    {% block stylesheets %}
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        {% stylesheets
+            '@EllisAppsSharedBundle/Resources/public/css/bootstrap/bootstrap.css'
+            '@EllisAppsSharedBundle/Resources/public/css/custom.css'
+            '@EllisAppsHelpDeskBundle/Resources/public/css/custom.css'
+            '@EllisAppsHelpDeskBundle/Resources/public/css/nav.css'
+        %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+    {% endblock %}
+
+</head>
+<body>
+
+    <div id="wrapper">
+        {# main nav #}
+        {% include 'EllisAppsHelpDeskBundle:Shared:nav.html.twig' %}
+
+        {# content #}
+        <div id="content" style="overflow: auto;">
+            {% block content %}
+
+            {% endblock %}
+        </div>
+
+        {# footer #}
+        {#<div style="padding-top: 20px; padding-bottom: 20px; background-color: #e6e6e6; color: #aaa;">#}
+        <div id="footer">
+            <div class="pull-right">
+                <i class="fa fa-facebook-square fa-2x"></i>
+                <i class="fa fa-twitter-square fa-2x"></i>
+                <i class="fa fa-linkedin-square fa-2x"></i>
+            </div>
+            <div style="font-size: 18px;">
+                &copy; Copyright EllisApps LLC {{ "now"|date('Y') }}
+            </div>
+        </div>
+    </div>
+
+    {% block javascripts %}
+        {% javascripts
+            'bundles/ellisappsshared/js/jquery-1.11.1.min.js'
+            'bundles/ellisappsshared/js/bootstrap/bootstrap.js'
+        %}
+            <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+
+        <script>
+            /* datepicker */
+            // $('.datepicker').datepicker();
+
+            /* table row click */
+            $('.js-row-click').on('click', function(e){
+                window.location.href = $(this).attr('data-url');
+            });
+        </script>
+    {% endblock %}
+
+</body>
+</html>

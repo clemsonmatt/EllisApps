@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calendar</title>
+
+    {% block stylesheets %}
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        {% stylesheets
+            '@EllisAppsSharedBundle/Resources/public/css/bootstrap/bootstrap.css'
+            '@EllisAppsSharedBundle/Resources/public/css/bootstrap-datepicker/bootstrap-datepicker.css'
+            '@EllisAppsSharedBundle/Resources/public/css/bootstrap-timepicker/bootstrap-timepicker.css'
+            '@EllisAppsSharedBundle/Resources/public/css/custom.css'
+            '@EllisAppsCalendarBundle/Resources/public/css/custom.css'
+            '@EllisAppsCalendarBundle/Resources/public/css/nav.css'
+        %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+    {% endblock %}
+
+</head>
+<body>
+
+    <div id="wrapper">
+        {# main nav #}
+        {% include 'EllisAppsCalendarBundle:Shared:nav.html.twig' %}
+
+        {# content #}
+        <div id="content" style="overflow: auto; min-height: 400px;">
+
+            {% block flash_messages %}
+                {% set flashTypes = [ 'info', 'warning', 'error', 'success'] %}
+                {% set flashTypeMap = {
+                    'info'    : 'info',
+                    'warning' : 'warning',
+                    'error'   : 'danger',
+                    'success' : 'success',
+                } %}
+                {% for flashType in flashTypes %}
+                    {% for flashMessage in app.session.flashbag.get(flashType) %}
+                        <div class="hidden-print alert alert-dismissible alert-{{ flashTypeMap[flashType] }}" role="alert" style="margin-bottom: 20px;">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>
+                                {{ flashMessage|raw }}
+                            </strong>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            {% endblock %}
+
+            {% block content %}
+                <div class="panel panel-custom">
+                    <div class="panel-heading">
+                        {% block panel_heading %}
+                        {% endblock %}
+                    </div>
+                    <div class="panel-body">
+                        {% block panel_content %}
+                        {% endblock %}
+                    </div>
+                </div>
+            {% endblock %}
+        </div>
+
+        {# footer #}
+        {#<div style="padding-top: 20px; padding-bottom: 20px; background-color: #e6e6e6; color: #aaa;">#}
+        <div id="footer">
+            <div class="pull-right">
+                <i class="fa fa-facebook-square fa-2x"></i>
+                <i class="fa fa-twitter-square fa-2x"></i>
+                <i class="fa fa-instagram fa-2x"></i>
+            </div>
+            <div style="font-size: 18px;">
+                &copy; Copyright EllisApps LLC {{ "now"|date('Y') }}
+            </div>
+        </div>
+    </div>
+
+    {% block javascripts %}
+        {% javascripts
+            'bundles/ellisappsshared/js/jquery-1.11.1.min.js'
+            'bundles/ellisappsshared/js/bootstrap/bootstrap.js'
+            'bundles/ellisappsshared/js/bootstrap-datepicker/bootstrap-datepicker.js'
+            'bundles/ellisappsshared/js/bootstrap-timepicker/bootstrap-timepicker.js'
+        %}
+            <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+
+        <script>
+            /* datepicker */
+            $('.datepicker').datepicker({
+                autoclose: true
+            });
+
+            /* timepicker */
+            $('.timepicker').timepicker({showInputs: false});
+
+            /* table row click */
+            $('.js-row-click').on('click', function(e){
+                window.location.href = $(this).attr('data-url');
+            });
+        </script>
+    {% endblock %}
+
+</body>
+</html>

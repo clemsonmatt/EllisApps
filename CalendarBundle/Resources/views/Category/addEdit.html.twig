@@ -1,0 +1,14 @@
+{% extends 'EllisAppsCalendarBundle:Shared:layout.html.twig' %}
+
+{% block panel_heading %}
+    Add Category
+{% endblock %}
+
+{% block panel_content %}
+    {{ form_start(form) }}
+        {{ form_rest(form) }}
+        <button type="submit" class="btn btn-custom">
+            <i class="fa fa-check"></i> Save
+        </button>
+    {{ form_end(form) }}
+{% endblock %}

@@ -1,0 +1,4 @@
+ellisapps_helpdesk:
+    resource: "@EllisAppsHelpDeskBundle/Controller/"
+    type:     annotation
+    prefix:   /help-desk

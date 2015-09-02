@@ -1,0 +1,28 @@
+{% extends 'EllisAppsCalendarBundle:Shared:layout.html.twig' %}
+
+{% block panel_heading %}
+    Add Event
+{% endblock %}
+
+{% block panel_content %}
+    {{ form_start(form) }}
+        <div class="row">
+            <div class="col-sm-6">
+                {{ form_row(form.name) }}
+                {{ form_row(form.calendar) }}
+                <hr>
+                {{ form_row(form.startDate) }}
+                {{ form_row(form.endDate) }}
+                <hr>
+                {{ form_row(form.startTime) }}
+                {{ form_row(form.endTime) }}
+            </div>
+            <div class="col-sm-6">
+                {{ form_rest(form) }}
+            </div>
+        </div>
+        <button type="submit" class="btn btn-custom pull-right">
+            <i class="fa fa-check"></i> Save
+        </button>
+    {{ form_end(form) }}
+{% endblock %}

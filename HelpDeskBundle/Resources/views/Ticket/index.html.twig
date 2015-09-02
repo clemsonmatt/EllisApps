@@ -1,0 +1,34 @@
+{% extends 'EllisAppsHelpDeskBundle:Shared:layout.html.twig' %}
+
+{% block content %}
+    <div class="panel panel-custom">
+        <div class="panel-heading">
+            Open Tickets
+        </div>
+        <div class="panel-body">
+            <table class="table table-bordered table-custom-hover">
+                <thead>
+                    <th>Status</th>
+                    <th class="col-sm-3">Category</th>
+                    <th class="col-sm-3">Summary</th>
+                    <th class="col-sm-3">Creator</th>
+                    <th class="col-sm-3">Date</th>
+                </thead>
+                {% for ticket in tickets %}
+                    <tr class="js-row-click" data-url="{{ path('ellisapps_helpdesk_ticket_show', {'ticket': ticket.id}) }}">
+                        <td>
+                            {% set currentStatus = ticket.currentStatus %}
+                            <span class="label label-{{ currentStatus.labelStatus }}">
+                                {{ currentStatus.status|capitalize }}
+                            </span>
+                        </td>
+                        <td>{{ ticket.categoryList[ticket.category] }}</td>
+                        <td>{{ ticket.subject }}</td>
+                        <td>{{ ticket.personEmail }}</td>
+                        <td>{{ currentStatus.statusDate|date('m-d-Y h:i a') }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %}

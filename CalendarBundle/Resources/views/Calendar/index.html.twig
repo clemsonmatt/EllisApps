@@ -1,0 +1,146 @@
+{% extends 'EllisAppsCalendarBundle:Shared:layout.html.twig' %}
+
+{% block panel_heading %}
+    <div class="pull-right">
+        <div class="btn-group">
+            <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-chevron-down"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right">
+                <li>
+                    <a href="{{ path('ellisapps_calendar_event_add', {'category': category.id}) }}">
+                        <span class="text-success">
+                            <i class="fa fa-plus"></i>
+                            Add Event
+                        </span>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li><a href="#">Edit Cross Country</a></li>
+                <li><a href="#">Edit Soccer</a></li>
+                <li><a href="#">Edit Volleyball</a></li>
+            </ul>
+        </div>
+    </div>
+    {% if category %}
+        {{ category }}
+    {% else %}
+        All
+    {% endif %}
+    Calendars
+{% endblock %}
+
+{% block panel_content %}
+    <h3>
+        <div class="pull-right">
+            <a href="#">
+                <i class="fa fa-chevron-circle-left"></i>
+            </a>
+            <a href="#">
+                <i class="fa fa-chevron-circle-right"></i>
+            </a>
+        </div>
+        {{ time|date('F') }}
+    </h3>
+
+    <table style="border: 1px solid #ddd; width: 100%;">
+        <thead>
+            <th class="text-center" style="width: 10%; padding: 5px; border-bottom: 1px solid #ddd;">
+                Sunday
+            </th>
+            <th class="text-center" style="width: 10%; padding: 5px; border-left: 1px solid #ddd; border-bottom: 1px solid #ddd;">
+                Monday
+            </th>
+            <th class="text-center" style="width: 10%; padding: 5px; border-left: 1px solid #ddd; border-bottom: 1px solid #ddd;">
+                Tuesday
+            </th>
+            <th class="text-center" style="width: 10%; padding: 5px; border-left: 1px solid #ddd; border-bottom: 1px solid #ddd;">
+                Wednesday
+            </th>
+            <th class="text-center" style="width: 10%; padding: 5px; border-left: 1px solid #ddd; border-bottom: 1px solid #ddd;">
+                Thursday
+            </th>
+            <th class="text-center" style="width: 10%; padding: 5px; border-left: 1px solid #ddd; border-bottom: 1px solid #ddd;">
+                Friday
+            </th>
+            <th class="text-center" style="width: 10%; padding: 5px; border-left: 1px solid #ddd; border-bottom: 1px solid #ddd;">
+                Saturday
+            </th>
+        </thead>
+        <tbody style="font-size: 12px;">
+            <tr>
+            {% set daysInMonth = time|date('t') %}
+            {% set startDow    = time|date('F 1\\s\\t Y')|date('w') %}
+            {% set dow         = startDow %}
+
+            {% for day in range(1, daysInMonth) %}
+                {% if loop.first and startDow != 0 %}
+                    <td colspan="{{ startDow }}" style="background-color: #f6f6f6;"></td>
+                {% endif %}
+                <td>
+                    <div style="height: 125px; border-left: 1px solid #ddd; border-bottom: 1px solid #ddd;">
+                        {# day number #}
+                        <div style="padding: 5px; color: #aaa;">
+                            {# check for current day #}
+                            {% if day == "now"|date('j') %}
+                                <span style="background-color: #2980b9; color: #fff; padding: 1px 5px 1px 5px; border-radius: 15px;">
+                                    {{ day }}
+                                </span>
+                            {% else %}
+                                {{ day }}
+                            {% endif %}
+                        </div>
+
+                        {# day content #}
+                        <div>
+                            {% set count = 0 %}
+                            {% for calendar in category.calendars %}
+                                {% for event in calendar.events %}
+                                    {% if event.startDate|date('j') == day %}
+                                        <div style="background-color: #{{ calendar.colorList[calendar.color] }}; color: #{{ calendar.color }}; padding: 5px; {% if count > 0 %} margin-top: 2px; {% endif %}" data-toggle="popover" data-placement="top" data-html="true" tabindex="0" role="button" data-trigger="focus" title="{{ calendar }} | {{ event }}" data-content="<strong>Time: </strong>{{ event.startTime }} &mdash; {{ event.endTime }} <hr style='margin: 5px;'><strong>Location: </strong> {{ event.location }} {% if event.comments %} <hr style='margin: 5px;'><strong>Comments: </strong> {{ event.comments }} {% endif %}">
+                                            {{ calendar.abbr }}: {{ event }}
+                                        </div>
+                                        {% set count = count + 1 %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                            {#{% if day == 8 %}
+                                <div style="background-color: #f9f0f6; padding: 5px;">
+                                    CC: @ Rebun Gap
+                                </div>
+                            {% elseif day == 17 %}
+                                <div style="background-color: #e6f0f9; padding: 5px;">
+                                    S: VS West Gate
+                                </div>
+                                <div style="background-color: #e6f8f3; padding: 5px; margin-top: 2px;">
+                                    V: VS West Gate
+                                </div>
+                            {% endif %}#}
+                        </div>
+                    </div>
+                </td>
+                {% if loop.last and dow != 6 %}
+                    <td colspan="{{ 6 - dow }}" style="background-color: #f6f6f6;">&nbsp;</td>
+                {% endif %}
+                {% if dow == 6 %}
+                    {% set dow = 0 %}
+                    </tr>
+                    <tr>
+                {% else %}
+                    {% set dow = dow + 1 %}
+                {% endif %}
+            {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        $(function () {
+            $('[data-toggle="popover"]').popover()
+        })
+    </script>
+{% endblock %}
