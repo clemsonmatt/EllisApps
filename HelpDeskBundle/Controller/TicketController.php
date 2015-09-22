@@ -64,6 +64,7 @@ class TicketController extends Controller
         if ($form->isValid()) {
             switch ($form['action']->getData()) {
                 case 'note':
+                    $statusHistory->setStatus(StatusInterface::CREATED);
                     $statusHistory->setInternal(true);
                     continue;
 
