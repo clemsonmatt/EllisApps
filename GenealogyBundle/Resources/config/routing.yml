@@ -1,0 +1,4 @@
+ellisapps_genealogy:
+    resource: "@EllisAppsGenealogyBundle/Controller/"
+    type:     annotation
+    prefix:   /genealogy

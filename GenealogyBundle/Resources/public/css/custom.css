@@ -1,0 +1,44 @@
+/* fonts */
+h1, h2, h3, h4 {
+    color: #34495e;
+}
+
+.font-medium {
+    font-size: 1.2em;
+    line-height: 1.3em;
+}
+
+/* colors */
+.custom-light-blue {
+    color: #bec1c3;
+}
+
+
+/* lists */
+.dl-list dd {
+    margin-bottom: 15px;
+    color: #777;
+}
+
+
+/* hr */
+.custom-hr {
+    border-top: 1px solid #dee1e3;
+}
+
+
+/* pointer */
+.pointer {
+    cursor: pointer;
+}
+
+
+/* panels */
+.panel-custom {
+    border-radius: 0px;
+    border: none;
+}
+.panel-click:hover {
+    background-color: #f7f8f9;
+    cursor: pointer;
+}
