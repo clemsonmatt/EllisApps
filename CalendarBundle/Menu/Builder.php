@@ -17,13 +17,34 @@ class Builder extends ContainerAware
 
         $menu = $factory->createItem('root');
 
+        $today = new \DateTime("now");
+
         foreach ($categories as $category) {
-            $menu->addChild($category->getName(), [
-                'route' => 'ellisapps_calendar_index',
-                'routeParameters' => [
-                    'category' => $category->getId(),
-                ],
-            ]);
+            // $menu->addChild($category->getName(), [
+            //     'route' => 'ellisapps_calendar_date',
+            //     'routeParameters' => [
+            //         'category' => $category->getId(),
+            //         'year'     => $today->format('Y'),
+            //         'month'    => $today->format('m'),
+            //     ],
+            // ]);
+            if ($category->getName() == 'Finance') {
+                $menu->addChild($category->getName(), [
+                    'route' => 'ellisapps_calendar_date_finance',
+                    'routeParameters' => [
+                        'category' => $category->getId(),
+                        'year'     => $today->format('Y'),
+                        'month'    => $today->format('m'),
+                    ],
+                ]);
+            } else {
+                $menu->addChild($category->getName(), [
+                    'route' => 'ellisapps_calendar_index',
+                    'routeParameters' => [
+                        'category' => $category->getId(),
+                    ],
+                ]);
+            }
         }
 
         return $menu;

@@ -29,6 +29,10 @@ class EventController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            if ($event->getRecurring() !== null) {
+                $event = $this->setRecurringDate($event);
+            }
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
             $em->flush();
@@ -43,5 +47,23 @@ class EventController extends Controller
             'form'     => $form->createView(),
             'category' => $category,
         ]);
+    }
+
+
+    private function setRecurringDate(Event $event)
+    {
+        $date = $event->getStartDate();
+
+        switch ($event->getRecurring()) {
+            case 'monthly':
+                $event->setRecurringNumber($date->format('j'));
+                break;
+
+            case 'weekly':
+                $event->setRecurringNumber($date->format('N'));
+                break;
+        }
+
+        return $event;
     }
 }

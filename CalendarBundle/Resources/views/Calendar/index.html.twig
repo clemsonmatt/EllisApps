@@ -31,16 +31,25 @@
 {% endblock %}
 
 {% block panel_content %}
-    <h3>
+    <h3 id="month">
         <div class="pull-right">
-            <a href="#">
+            {% if category.name == 'Finance' %}
+                <a href="{{ path('ellisapps_calendar_date_finance', {'category': category.id, 'year': time|date_modify('-1 month')|date('Y'), 'month': time|date_modify('-1 month')|date('m'), 'money': eom_money}) }}">
+                    <i class="fa fa-chevron-circle-left"></i>
+                </a>
+                <a href="{{ path('ellisapps_calendar_date_finance', {'category': category.id, 'year': time|date_modify('+1 month')|date('Y'), 'month': time|date_modify('+1 month')|date('m'), 'money': eom_money}) }}">
+                    {{ icon('chevron-circle-right') }}
+                </a>
+            {% else %}
+                <a href="{{ path('ellisapps_calendar_date', {'category': category.id, 'year': time|date_modify('-1 month')|date('Y'), 'month': time|date_modify('-1 month')|date('m')}) }}">
                 <i class="fa fa-chevron-circle-left"></i>
             </a>
-            <a href="#">
+            <a href="{{ path('ellisapps_calendar_date', {'category': category.id, 'year': time|date_modify('+1 month')|date('Y'), 'month': time|date_modify('+1 month')|date('m')}) }}">
                 <i class="fa fa-chevron-circle-right"></i>
             </a>
+            {% endif %}
         </div>
-        {{ time|date('F') }}
+        {{ time|date('F Y') }}
     </h3>
 
     <table style="border: 1px solid #ddd; width: 100%;">
@@ -81,8 +90,14 @@
                     <div style="height: 125px; border-left: 1px solid #ddd; border-bottom: 1px solid #ddd;">
                         {# day number #}
                         <div style="padding: 5px; color: #aaa;">
+                            {% if category.name == 'Finance' %}
+                                <div class="pull-right">
+                                    ${{ som_money|number_format(2) }}
+                                </div>
+                            {% endif %}
+
                             {# check for current day #}
-                            {% if day == "now"|date('j') %}
+                            {% if day == "now"|date('j') and time|date('m') == "now"|date('m') %}
                                 <span style="background-color: #2980b9; color: #fff; padding: 1px 5px 1px 5px; border-radius: 15px;">
                                     {{ day }}
                                 </span>
@@ -92,31 +107,27 @@
                         </div>
 
                         {# day content #}
-                        <div>
-                            {% set count = 0 %}
-                            {% for calendar in category.calendars %}
-                                {% for event in calendar.events %}
-                                    {% if event.startDate|date('j') == day %}
-                                        <div style="background-color: #{{ calendar.colorList[calendar.color] }}; color: #{{ calendar.color }}; padding: 5px; {% if count > 0 %} margin-top: 2px; {% endif %}" data-toggle="popover" data-placement="top" data-html="true" tabindex="0" role="button" data-trigger="focus" title="{{ calendar }} | {{ event }}" data-content="<strong>Time: </strong>{{ event.startTime }} &mdash; {{ event.endTime }} <hr style='margin: 5px;'><strong>Location: </strong> {{ event.location }} {% if event.comments %} <hr style='margin: 5px;'><strong>Comments: </strong> {{ event.comments }} {% endif %}">
-                                            {{ calendar.abbr }}: {{ event }}
-                                        </div>
-                                        {% set count = count + 1 %}
+                        {% set count = 0 %}
+                        {% for calendar in category.calendars %}
+                            {% for event in calendar.events %}
+                                {% if (event.startDate|date('j') == day and time|date('m') == event.startDate|date('m')) or (event.recurring != null and (event.recurring == 'weekly' and dow == event.recurringNumber) or event.recurring == 'monthly' and day == event.recurringNumber) %}
+
+                                    <div style="background-color: #{{ calendar.colorList[calendar.color] }}; color: #{{ calendar.color }}; padding: 5px; {% if count > 0 %} margin-top: 2px; {% endif %}" data-toggle="popover" data-placement="top" data-html="true" tabindex="0" role="button" data-trigger="focus" title="{{ calendar }} | {{ event }}" data-content="<strong>Time: </strong>{{ event.startTime }} &mdash; {{ event.endTime }} {% if event.location %}<hr style='margin: 5px;'><strong>Location: </strong> {{ event.location }} {% endif %} {% if event.comments %} <hr style='margin: 5px;'><strong>Comments: </strong> {{ event.comments }} {% endif %}">
+                                        {{ calendar.abbr }}: {{ event }}
+                                    </div>
+                                    {% set count = count + 1 %}
+
+                                    {% if category.name == 'Finance' %}
+                                        {% if calendar.name == 'Payday' %}
+                                            {% set som_money = som_money + event.comments|replace({"$": ""}) %}
+                                        {% else %}
+                                            {% set som_money = som_money - event.comments|replace({"$": ""}) %}
+                                        {% endif %}
                                     {% endif %}
-                                {% endfor %}
+
+                                {% endif %}
                             {% endfor %}
-                            {#{% if day == 8 %}
-                                <div style="background-color: #f9f0f6; padding: 5px;">
-                                    CC: @ Rebun Gap
-                                </div>
-                            {% elseif day == 17 %}
-                                <div style="background-color: #e6f0f9; padding: 5px;">
-                                    S: VS West Gate
-                                </div>
-                                <div style="background-color: #e6f8f3; padding: 5px; margin-top: 2px;">
-                                    V: VS West Gate
-                                </div>
-                            {% endif %}#}
-                        </div>
+                        {% endfor %}
                     </div>
                 </td>
                 {% if loop.last and dow != 6 %}
@@ -141,6 +152,9 @@
     <script>
         $(function () {
             $('[data-toggle="popover"]').popover()
-        })
+        });
+
+        // var element_to_scroll_to = document.getElementById('month');
+        // element_to_scroll_to.scrollIntoView();
     </script>
 {% endblock %}

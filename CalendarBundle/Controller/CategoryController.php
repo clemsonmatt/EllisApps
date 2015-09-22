@@ -30,7 +30,9 @@ class CategoryController extends Controller
             $em->flush();
 
             $this->addFlash('success', 'Category added');
-            return $this->redirectToRoute('ellisapps_calendar_index');
+            return $this->redirectToRoute('ellisapps_calendar_index', [
+                'category' => $category->getId(),
+            ]);
         }
 
         return $this->render('EllisAppsCalendarBundle:Category:addEdit.html.twig', [

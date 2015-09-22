@@ -16,6 +16,15 @@
                 <hr>
                 {{ form_row(form.startTime) }}
                 {{ form_row(form.endTime) }}
+                <hr>
+
+                <div class="checkbox">
+                    <label><input type="checkbox" id="js-recurring-checkbox" value="">Recurring</label>
+                </div>
+
+                <div style="display: none;" id="js-recurring">
+                    {{ form_row(form.recurring) }}
+                </div>
             </div>
             <div class="col-sm-6">
                 {{ form_rest(form) }}
@@ -25,4 +34,14 @@
             <i class="fa fa-check"></i> Save
         </button>
     {{ form_end(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        $('#js-recurring-checkbox').on('click', function(e){
+            $('#js-recurring').toggle();
+        })
+    </script>
 {% endblock %}

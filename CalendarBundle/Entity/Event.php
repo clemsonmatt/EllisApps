@@ -21,6 +21,21 @@ class Event
         return $this->name;
     }
 
+    public static function getRecurringList($key = null)
+    {
+        $recurringList = [
+            'monthly' => 'Monthly',
+            'weekly'  => 'Weekly',
+        ];
+
+        if ($key !== null) {
+            return $recurringList[$key];
+        }
+
+        return $recurringList;
+    }
+
+
     /**
      * @ORM\Id()
      * @ORM\Column(type="integer")
@@ -45,7 +60,7 @@ class Event
     private $comments;
 
     /**
-     * @ORM\Column(name="location", type="text")
+     * @ORM\Column(name="location", type="text", nullable=true)
      */
     private $location;
 
@@ -68,6 +83,16 @@ class Event
      * @ORM\Column(name="end_time", type="string", length=255)
      */
     private $endTime;
+
+    /**
+     * @ORM\Column(name="recurring", type="string", length=255, nullable=true)
+     */
+    private $recurring;
+
+    /**
+     * @ORM\Column(name="recurring_number", type="integer", nullable=true)
+     */
+    private $recurringNumber;
 
 
     /**
@@ -262,5 +287,51 @@ class Event
     public function getEndTime()
     {
         return $this->endTime;
+    }
+
+    /**
+     * Set recurring
+     *
+     * @param string $recurring
+     * @return Event
+     */
+    public function setRecurring($recurring)
+    {
+        $this->recurring = $recurring;
+
+        return $this;
+    }
+
+    /**
+     * Get recurring
+     *
+     * @return string
+     */
+    public function getRecurring()
+    {
+        return $this->recurring;
+    }
+
+    /**
+     * Set recurringNumber
+     *
+     * @param integer $recurringNumber
+     * @return Event
+     */
+    public function setRecurringNumber($recurringNumber)
+    {
+        $this->recurringNumber = $recurringNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get recurringNumber
+     *
+     * @return integer
+     */
+    public function getRecurringNumber()
+    {
+        return $this->recurringNumber;
     }
 }

@@ -9,6 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 use EllisApps\CalendarBundle\Entity\Calendar;
+use EllisApps\CalendarBundle\Entity\Event;
 
 /**
  * @DI\Service("ellisapps.calendar.form.type.calendar_event")
@@ -37,8 +38,9 @@ class EventType extends AbstractType
         ]);
 
         $builder->add('location', 'textarea', [
-            'label' => 'Location',
-            'attr'  => [
+            'label'    => 'Location',
+            'required' => false,
+            'attr'     => [
                 'rows' => 8,
             ],
         ]);
@@ -89,6 +91,13 @@ class EventType extends AbstractType
             'attr'     => [
                 'class' => 'timepicker',
             ],
+        ]);
+
+        $builder->add('recurring', 'choice', [
+            'label'       => 'When is the event recurring?',
+            'choices'     => Event::getRecurringList(),
+            'required'    => false,
+            'placeholder' => '-- Occurence --',
         ]);
     }
 

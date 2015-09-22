@@ -30,9 +30,12 @@ class Calendar
     public static function getColorList($key = null)
     {
         $colorList = [
-            '998086' => 'f9f0f6',
-            '768099' => 'e6f0f9',
+            'c98074' => 'fcecec',
+            'd38420' => 'fceadc',
+            'd1a44f' => 'f9f4cf',
             '769883' => 'e6f8f3',
+            '768099' => 'e0f0f9',
+            '968099' => 'f3ecf9',
         ];
 
         if ($key !== null) {
