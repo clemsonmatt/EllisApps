@@ -9,10 +9,10 @@
 }
 
 .navbar-custom .navbar-nav {
-    min-height: 80px;
+    height: 80px;
 }
 .navbar-custom .navbar-nav li {
-    min-height: 80px;
+    height: 80px;
 }
 .navbar-custom .navbar-nav li a {
     padding: 30px 15px;
@@ -30,6 +30,24 @@
     padding: 20px 15px;
     text-align: center;
     font-size: 2.8em;
+}
+
+
+/* dropdown in nav */
+.navbar-custom .dropdown-menu li {
+    height: 30px;
+    padding: 0px;
+}
+.navbar-custom .dropdown-menu li a {
+    padding: 5px 10px;
+}
+.navbar-custom .dropdown-menu .divider {
+    height: 1px !important;
+}
+
+.page-title {
+    font-size: 2.2em;
+    line-height: 1.8;
 }
 
 

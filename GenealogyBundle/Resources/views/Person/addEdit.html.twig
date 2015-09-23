@@ -1,0 +1,26 @@
+{% extends 'EllisAppsGenealogyBundle:Shared:layout.html.twig' %}
+
+{% block content %}
+    <div class="panel panel-custom">
+        <div class="panel-body">
+            {{ form_start(form) }}
+                <div class="row">
+                    <div class="col-sm-6">
+                        {{ form_row(form.family) }}
+                        {{ form_row(form.firstName) }}
+                        {{ form_row(form.lastName) }}
+                        {{ form_row(form.middleName) }}
+                        {{ form_row(form.gender) }}
+                    </div>
+                    <div class="col-sm-6">
+                        {{ form_rest(form) }}
+                    </div>
+                </div>
+                <button class="btn btn-success pull-right">
+                    {{ icon('check') }}
+                    Save Person
+                </button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
