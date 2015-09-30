@@ -21,6 +21,11 @@ class Person
         $this->spouses = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->firstName.' '.$this->lastName;
+    }
+
     /**
      * @ORM\Id()
      * @ORM\Column(type="integer")
@@ -106,7 +111,7 @@ class Person
      * @param Family $family
      * @return Person
      */
-    public function setFamily(\EllisApps\SharedBundle\Entity\Family $family)
+    public function setFamily(\EllisApps\GenealogyBundle\Entity\Family $family)
     {
         $this->family = $family;
 

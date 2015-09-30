@@ -15,7 +15,12 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <p class="navbar-text page-title">
                 {% block page_title %}
-                    {{ app.request.get('family')|capitalize }} Family
+                    {% set family = app.request.get('family') %}
+                    {% if family %}
+                        {{ family|capitalize }} Family
+                    {% else %}
+                        Families
+                    {% endif %}
                 {% endblock %}
             </p>
 
@@ -50,10 +55,10 @@
 
 <div class="navbar-custom sidebar" role="navigation">
     <div class="sidebar-nav navbar-collapse">
-        <ul class="nav" id="side-menu">
-            {#{% set primary_navigation = knp_menu_get('EllisAppsCalendarBundle:Builder:sideMenu', [], {'category': category}) %}
-            {{ knp_menu_render(primary_navigation, { 'depth' : 2 }) }}#}
+        {% set primary_navigation = knp_menu_get('EllisAppsGenealogyBundle:Builder:sideMenu') %}
+        {{ knp_menu_render(primary_navigation, {'currentClass': 'active', 'template': 'EllisAppsGenealogyBundle:Menu:knp_menu.html.twig'}) }}
 
+        {#<ul class="nav" id="side-menu">
             <li class="first">
                 <a href="#">
                   {{ icon('plus') }}
@@ -69,6 +74,6 @@
                     {{ icon('user') }}
                 </a>
             </li>
-        </ul>
+        </ul>#}
     </div>
 </div>

@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
+use EllisApps\GenealogyBundle\Entity\Family;
 use EllisApps\GenealogyBundle\Entity\Person;
 
 /**
@@ -16,15 +17,21 @@ class PersonController extends Controller
     /**
      * @Route("/", name="ellisapps_genealogy_person_index")
      */
-    public function indexAction()
+    public function indexAction(Family $family)
     {
-        return $this->render('EllisAppsGenealogyBundle:Person:index.html.twig');
+        $em         = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('EllisAppsGenealogyBundle:Person');
+        $people     = $repository->findByFamily($family);
+
+        return $this->render('EllisAppsGenealogyBundle:Person:index.html.twig', [
+            'people' => $people,
+        ]);
     }
 
     /**
      * @Route("/{person}/show", name="ellisapps_genealogy_person_show")
      */
-    public function showAction(Person $person)
+    public function showAction(Family $family, Person $person)
     {
         return $this->render('EllisAppsGenealogyBundle:Person:show.html.twig', [
             'person' => $person,
@@ -32,11 +39,12 @@ class PersonController extends Controller
     }
 
     /**
-     * @Route("/add")
+     * @Route("/add", name="ellisapps_genealogy_person_add")
      */
-    public function addAction(Request $request)
+    public function addAction(Family $family, Request $request)
     {
         $person = new Person();
+        $person->setFamily($family);
 
         $form = $this->createForm('ellisapps_genealogy_person', $person);
 

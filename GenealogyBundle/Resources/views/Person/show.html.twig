@@ -1,0 +1,226 @@
+{% extends 'EllisAppsGenealogyBundle:Shared:layout.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        {# info #}
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-sm-6">
+                    {# pic/name #}
+                    <div class="panel panel-custom" style="min-height: 375px;">
+                        <div class="panel-body">
+                            <div class="pull-right">
+                                <a href="#" class="pull-right text-muted" style="font-size: 1.6em;">
+                                    {{ icon('edit') }}
+                                </a>
+                            </div>
+                            <center>
+                                <div style="display: block;
+                                width: 250px;
+                                height: 250px;
+                                background: #eef1f3;
+                                border-radius: 125px;
+                                -webkit-border-radius: 125px;
+                                background-image: url(
+                                    {{ asset('uploads/genealogy/image.jpeg') }}
+                                );
+                                background-position:50% 50%;
+                                background-repeat:no-repeat;
+                                background-size: cover;">
+                                </div>
+                                <hr>
+                                <h2 class="dark-grey">
+                                    {{ person }}
+                                </h2>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    {# person's bio #}
+                    <div class="panel panel-custom" style="min-height: 375px;">
+                        <div class="panel-body">
+                            <dl class="font-medium dl-list">
+                                <dt>Gender</dt>
+                                <dd>{{ person.gender|capitalize }}</dd>
+
+                                <dt>Birth</dt>
+                                <dd>
+                                    {{ person.birthDate|date('m/d/Y') }}<br>
+                                    {{ person.birthLocation }}
+                                </dd>
+
+                                <dt>Marriage</dt>
+                                <dd>
+                                    Caitlyn Dickerson Ellis<br>
+                                    04/11/2015
+                                </dd>
+
+                                <dt>Death</dt>
+                                <dd>
+                                    {% if person.deathDate %}
+                                        {{ person.deathDate|date('m/d/Y') }}<br>
+                                        {{ person.deathLocation }}
+                                    {% else %}
+                                        {{ icon('ban') }}
+                                    {% endif %}
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {# documents/notes #}
+            <div class="panel panel-custom">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h3>
+                                <a href="#" class="pull-right text-muted">
+                                    {{ icon('plus') }}
+                                </a>
+                                Documents
+                            </h3>
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                </thead>
+                                <tr>
+                                    <td colspan="2">
+                                        <span class="text-muted">
+                                            {{ icon('ban') }}
+                                            None
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-sm-6">
+                            <h3>
+                                <a href="#" class="pull-right text-muted">
+                                    {{ icon('edit') }}
+                                </a>
+                                Notes
+                            </h3>
+                            <div class="well">
+                                <span class="text-muted">
+                                    {{ icon('ban') }}
+                                    None
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {# relationships #}
+        <div class="col-md-4">
+            <h4 class="custom-light-blue">Parents</h4>
+            <div class="panel panel-custom panel-click" style="margin-bottom: 5px;">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <center>
+                                <img src="{{ asset('uploads/genealogy/image.jpeg') }}" style="max-width: 100%; width: 100px;">
+                            </center>
+                        </div>
+                        <div class="col-sm-8">
+                            <h4>Jeff Ellis</h4>
+                            <h5 class="text-muted">Father</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-custom panel-click">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <center>
+                                <img src="{{ asset('uploads/genealogy/image.jpeg') }}" style="max-width: 100%; width: 100px;">
+                            </center>
+                        </div>
+                        <div class="col-sm-8">
+                            <h4>Donna Ellis</h4>
+                            <h5 class="text-muted">Mother</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="custom-hr">
+
+            <h4 class="custom-light-blue">Siblings</h4>
+            <div class="panel panel-custom panel-click">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <center>
+                                <img src="{{ asset('uploads/genealogy/image.jpeg') }}" style="max-width: 100%; width: 100px;">
+                            </center>
+                        </div>
+                        <div class="col-sm-8">
+                            <h4>Amber Ellis</h4>
+                            <h5 class="text-muted">Sister</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="custom-hr">
+
+            <h4 class="custom-light-blue">Spouses &amp; Children</h4>
+            <div class="panel panel-custom panel-click">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <center>
+                                <img src="{{ asset('uploads/genealogy/image.jpeg') }}" style="max-width: 100%; width: 100px;">
+                            </center>
+                        </div>
+                        <div class="col-sm-8">
+                            <h4>Caitlyn Ellis</h4>
+                            <h5 class="text-muted">Wife</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {# children #}
+            <div style="border-left: 2px solid #dee1e3; border-bottom: 2px solid #dee1e3; height; 50px; width: 50px; margin-left: 45px; margin-top: -10px; margin-bottom: -25px;">
+                &nbsp;
+            </div>
+            <div style="margin-left: 105px;">
+                <div class="panel panel-custom panel-click">
+                    <div class="panel-body">
+                        Name
+                    </div>
+                </div>
+            </div>
+            <div style="border-left: 2px solid #dee1e3; border-bottom: 2px solid #dee1e3; height; 50px; width: 50px; margin-left: 45px; margin-top: -40px; margin-bottom: -25px;">
+                <div style="height: 50px;">
+
+                </div>
+            </div>
+            <div style="margin-left: 105px;">
+                <div class="panel panel-custom panel-click">
+                    <div class="panel-body">
+                        Name
+                    </div>
+                </div>
+            </div>
+            <div style="border-left: 2px solid #dee1e3; border-bottom: 2px solid #dee1e3; height; 50px; width: 50px; margin-left: 45px; margin-top: -40px; margin-bottom: -25px;">
+                <div style="height: 50px;">
+
+                </div>
+            </div>
+            <div style="margin-left: 105px;">
+                <div class="panel panel-custom panel-click">
+                    <div class="panel-body">
+                        Name
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'EllisAppsGenealogyBundle:Shared:layout.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        {% for family in families %}
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="panel panel-default panel-click" data-url="{{ path('ellisapps_genealogy_tree_index', {'family': family.id}) }}">
+                    <div class="panel-body">
+                        <p class="panel-body-card panel-body-card-lg">
+                            {{ family }} Family
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

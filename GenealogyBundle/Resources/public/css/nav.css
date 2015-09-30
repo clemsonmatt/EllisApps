@@ -65,7 +65,7 @@
 #side-menu > li > a {
     /*color: #f2f1f1;*/
     color: #e0e1e2;
-    font-size: 22px;
+    /*font-size: em;*/
     padding: 25px 15px;
     text-align: center;
 }
