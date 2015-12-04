@@ -1,0 +1,72 @@
+{% extends 'EllisAppsDefaultBundle:Default:layout.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel panel-custom js-row-click" data-url="{{ path('ellisapps_budget_index') }}" style="height: 135px; cursor: pointer;">
+                <div class="panel-body">
+                    <p style="border-left: 4px solid #f66733;">
+                        <span style="font-size: 2.4em; padding-left: 15px; line-height: 3;">
+                            Budget
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-custom js-row-click" data-url="{{ path('ellisapps_calendar_index', {category: 2}) }}" style="height: 135px; cursor: pointer;">
+                <div class="panel-body">
+                    <p style="border-left: 4px solid #f66733;">
+                        <span style="font-size: 2.4em; padding-left: 15px; line-height: 3;">
+                            Calendar
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-custom js-row-click" data-url="{{ path('ellisapps_clemson_calendar_index') }}" style="height: 135px; cursor: pointer;">
+                <div class="panel-body">
+                    <p style="border-left: 4px solid #f66733;">
+                        <span style="font-size: 2.4em; padding-left: 15px; line-height: 3;">
+                            Clemson Calendar
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-custom js-row-click" data-url="{{ path('ellisapps_ecommerce_index') }}" style="height: 135px; cursor: pointer;">
+                <div class="panel-body">
+                    <p style="border-left: 4px solid #f66733;">
+                        <span style="font-size: 2.4em; padding-left: 15px; line-height: 3;">
+                            E-Commerce
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-custom js-row-click" data-url="{{ path('ellisapps_genealogy_index') }}" style="height: 135px; cursor: pointer;">
+                <div class="panel-body">
+                    <p style="border-left: 4px solid #f66733;">
+                        <span style="font-size: 2.4em; padding-left: 15px; line-height: 3;">
+                            Genealogy
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-custom js-row-click" data-url="{{ path('ellisapps_helpdesk_ticket_index') }}" style="height: 135px; cursor: pointer;">
+                <div class="panel-body">
+                    <p style="border-left: 4px solid #f66733;">
+                        <span style="font-size: 2.4em; padding-left: 15px; line-height: 3;">
+                            Help Desk
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

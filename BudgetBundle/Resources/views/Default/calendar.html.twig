@@ -1,0 +1,88 @@
+{% set time = "now" %}
+
+<table style="border: 1px solid #ddd; width: 100%;">
+    <thead>
+        <th class="text-center" style="width: 10%; padding: 5px; border-bottom: 1px solid #ddd;">
+            Sunday
+        </th>
+        <th class="text-center" style="width: 10%; padding: 5px; border-left: 1px solid #ddd; border-bottom: 1px solid #ddd;">
+            Monday
+        </th>
+        <th class="text-center" style="width: 10%; padding: 5px; border-left: 1px solid #ddd; border-bottom: 1px solid #ddd;">
+            Tuesday
+        </th>
+        <th class="text-center" style="width: 10%; padding: 5px; border-left: 1px solid #ddd; border-bottom: 1px solid #ddd;">
+            Wednesday
+        </th>
+        <th class="text-center" style="width: 10%; padding: 5px; border-left: 1px solid #ddd; border-bottom: 1px solid #ddd;">
+            Thursday
+        </th>
+        <th class="text-center" style="width: 10%; padding: 5px; border-left: 1px solid #ddd; border-bottom: 1px solid #ddd;">
+            Friday
+        </th>
+        <th class="text-center" style="width: 10%; padding: 5px; border-left: 1px solid #ddd; border-bottom: 1px solid #ddd;">
+            Saturday
+        </th>
+    </thead>
+    <tbody style="font-size: 12px;">
+        <tr>
+        {% set daysInMonth = time|date('t') %}
+        {% set startDow    = time|date('F 1\\s\\t Y')|date('w') %}
+        {% set dow         = startDow %}
+
+        {% for day in range(1, daysInMonth) %}
+            {% if loop.first and startDow != 0 %}
+                <td colspan="{{ startDow }}" style="background-color: #f6f6f6;"></td>
+            {% endif %}
+            <td>
+                <div style="height: 150px; border-left: 1px solid #ddd; border-bottom: 1px solid #ddd;">
+                    {# day number #}
+                    <div style="padding: 5px; color: #aaa;">
+                        {# check for current day #}
+                        {% if day == "now"|date('j') and time|date('m') == "now"|date('m') %}
+                            <span style="background-color: #2980b9; color: #fff; padding: 1px 5px 1px 5px; border-radius: 15px;">
+                                {{ day }}
+                            </span>
+                        {% else %}
+                            {{ day }}
+                        {% endif %}
+                    </div>
+
+                    {# day content #}
+                    {#{% set count = 0 %}
+                    {% for calendar in category.calendars %}
+                        {% for event in calendar.events %}
+                            {% if (event.startDate|date('j') == day and time|date('m') == event.startDate|date('m')) or (event.recurring != null and (event.recurring == 'weekly' and dow == event.recurringNumber) or event.recurring == 'monthly' and day == event.recurringNumber) %}
+
+                                <div style="background-color: #{{ calendar.colorList[calendar.color] }}; color: #{{ calendar.color }}; padding: 5px; {% if count > 0 %} margin-top: 2px; {% endif %}" data-toggle="popover" data-placement="top" data-html="true" tabindex="0" role="button" data-trigger="focus" title="{{ calendar }} | {{ event }}" data-content="<strong>Time: </strong>{{ event.startTime }} &mdash; {{ event.endTime }} {% if event.location %}<hr style='margin: 5px;'><strong>Location: </strong> {{ event.location }} {% endif %} {% if event.comments %} <hr style='margin: 5px;'><strong>Comments: </strong> {{ event.comments }} {% endif %}">
+                                    {{ calendar.abbr }}: {{ event }}
+                                </div>
+                                {% set count = count + 1 %}
+
+                                {% if category.name == 'Finance' %}
+                                    {% if calendar.name == 'Payday' %}
+                                        {% set som_money = som_money + event.comments|replace({"$": ""}) %}
+                                    {% else %}
+                                        {% set som_money = som_money - event.comments|replace({"$": ""}) %}
+                                    {% endif %}
+                                {% endif %}
+
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}#}
+                </div>
+            </td>
+            {% if loop.last and dow != 6 %}
+                <td colspan="{{ 6 - dow }}" style="background-color: #f6f6f6;">&nbsp;</td>
+            {% endif %}
+            {% if dow == 6 %}
+                {% set dow = 0 %}
+                </tr>
+                <tr>
+            {% else %}
+                {% set dow = dow + 1 %}
+            {% endif %}
+        {% endfor %}
+        </tr>
+    </tbody>
+</table>

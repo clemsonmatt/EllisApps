@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clemson</title>
+
+    {% block stylesheets %}
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        {% stylesheets
+            '@EllisAppsSharedBundle/Resources/public/css/bootstrap/bootstrap.css'
+        %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+    {% endblock %}
+
+</head>
+<body>
+    <div id="wrapper">
+        {# main nav #}
+        {#{% include 'EllisAppsGenealogyBundle:Shared:nav.html.twig' %}#}
+
+        {# content #}
+        <div id="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+
+    {% block javascripts %}
+        {% javascripts
+            'bundles/ellisappsshared/js/jquery-1.11.1.min.js'
+            'bundles/ellisappsshared/js/bootstrap/bootstrap.js'
+        %}
+            <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+
+        <script type="text/javascript">
+            $('.panel-click').on('click', function(e) {
+                window.location.href = $(this).attr('data-url');
+            })
+        </script>
+    {% endblock %}
+
+</body>
+</html>

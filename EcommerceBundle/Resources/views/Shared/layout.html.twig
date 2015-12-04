@@ -5,7 +5,7 @@
 
     {% block stylesheets %}
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-        {% stylesheets
+        {#{% stylesheets
             '@EllisAppsSharedBundle/Resources/public/css/bootstrap/bootstrap.css'
             '@EllisAppsSharedBundle/Resources/public/css/custom.css'
             '@EllisAppsEcommerceBundle/Resources/public/css/nav.css'
@@ -14,11 +14,21 @@
             '@EllisAppsEcommerceBundle/Resources/public/css/checkoutProgressBar.css'
         %}
             <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}#}
+        {% stylesheets
+            '@EllisAppsSharedBundle/Resources/public/css/bootstrap/bootstrap.css'
+            '@EllisAppsSharedBundle/Resources/public/css/custom.css'
+            '@EllisAppsEcommerceBundle/Resources/public/css/checkoutProgressBar.css'
+        %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
+
+        {% set theme = 'bundles/ellisappsecommerce/css/theme-' ~ app.user.theme ~ '.css' %}
+        <link href="{{ asset(theme) }}" rel="stylesheet" type="text/css" />
     {% endblock %}
 
 </head>
-<body style="background-color: #f9f9f9;">
+<body>
 
     {# main nav #}
     <div class="container">
@@ -67,11 +77,6 @@
         %}
             <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
-
-        <script>
-            /* datepicker */
-            // $('.datepicker').datepicker();
-        </script>
     {% endblock %}
 
 </body>

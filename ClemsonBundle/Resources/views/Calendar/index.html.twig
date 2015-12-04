@@ -1,0 +1,8 @@
+{% extends 'EllisAppsClemsonBundle:Shared:layout.html.twig' %}
+
+{% block content %}
+    {% for e in events %}
+        {% set event = e.event %}
+        {{ event.title }}
+    {% endfor %}
+{% endblock %}

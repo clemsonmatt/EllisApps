@@ -1,0 +1,4 @@
+ellisapps_budget:
+    resource: "@EllisAppsBudgetBundle/Controller/"
+    type:     annotation
+    prefix:   /budget

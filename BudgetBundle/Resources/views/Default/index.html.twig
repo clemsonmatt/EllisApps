@@ -1,0 +1,62 @@
+{% extends 'EllisAppsBudgetBundle:Shared:layout.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-custom">
+                <div class="panel-heading">
+                    {{ "now"|date('F') }} Events
+                </div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        {% for i in 0..20 %}
+                            <a href="#" class="list-group-item">
+                                <h4 class="list-group-item-heading">
+                                    {% if i % 3 == 0 %}
+                                        Bill
+                                    {% elseif i % 3 == 1 %}
+                                        Expense
+                                    {% elseif i % 3 == 2 %}
+                                        Payday
+                                    {% endif %}
+                                </h4>
+                                <p class="list-group-item-text">
+                                    {% if i % 3 == 0 %}
+                                        $116
+                                    {% elseif i % 3 == 1 %}
+                                        $180
+                                    {% elseif i % 3 == 2 %}
+                                        $650
+                                    {% endif %}
+                                </p>
+                            </a>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="panel panel-custom">
+                <div class="panel-heading">
+                    Calendar
+                </div>
+                <div class="panel-body">
+                    <h3 id="month">
+                        <div class="pull-right">
+                            <a href="#">
+                                <i class="fa fa-chevron-circle-left"></i>
+                            </a>
+                            <a href="#">
+                                {{ icon('chevron-circle-right') }}
+                            </a>
+                        </div>
+                        {{ "now"|date('F Y') }}
+                    </h3>
+
+                    {# include the calendar #}
+                    {% include 'EllisAppsBudgetBundle:Default:calendar.html.twig' %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

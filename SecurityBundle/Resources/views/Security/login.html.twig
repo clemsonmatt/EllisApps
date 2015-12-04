@@ -1,0 +1,39 @@
+{% extends 'EllisAppsSecurityBundle:Security:layout.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        <div style="margin-top: 5%;">
+            <center>
+                <p style="color: #f66733; font-weight: 100; letter-spacing: 12px; font-size: 3.6em;">
+                    EllisApps
+                </p>
+            </center>
+            <!-- login -->
+            <div class="col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 panel panel-default">
+                <form class="form-signin" action="login_check" method="post" style="margin-top: 20px;">
+                    {% if error %}
+                        <div class="alert alert-danger alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert">
+                                <span style="color: #b91e18; margin-right: 20px; text-shadow: none;">&times;</span>
+                            </button>
+                            {{ icon('exclamation-triangle') }}
+                            {{ error.message }}
+                        </div>
+                    {% else %}
+                        <div style="margin-top: 10px;"></div>
+                    {% endif %}
+
+                    <input type="text" class="form-control input-sm" name="_username" value="{{ username }}" placeholder="Username" />
+
+                    <input type="password" class="form-control input-sm" name="_password" placeholder="Password" />
+
+                    <button type="submit" class="btn btn-custom btn-block btn-lg" style="height: 50px;">
+                        {{ icon('sign-in') }}
+                        Login
+                    </button>
+                </form>
+                <br>
+            </div>
+        </div>
+    </div>
+{% endblock %}

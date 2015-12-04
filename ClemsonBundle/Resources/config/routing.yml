@@ -1,0 +1,4 @@
+ellisapps_clemson:
+    resource: "@EllisAppsClemsonBundle/Controller/"
+    type:     annotation
+    prefix:   /clemson
